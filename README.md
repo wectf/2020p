@@ -13,7 +13,7 @@ The mapping is as following
 
 ```
 localhost:8000 -> babyrev
-172.129.1.100:8001 -> KVCloud 
+172.129.1.100 -> KVCloud 
 localhost:8003 -> dont-bf-me
 localhost:8004 -> Hashtable
 localhost:8005 -> Notebin 
