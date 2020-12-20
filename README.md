@@ -272,7 +272,7 @@ Hint 2: Shou is using Firefox. Firefox does not have CORB.
 Handout: https://github.com/wectf/2020p/blob/master/wallet/handout.zip
 
 **Writeup**
-XFS + XSSI + Some recon
+CSRF + XSSI + Some recon
 
 0.html:
 ```html
