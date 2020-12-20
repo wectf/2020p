@@ -7,7 +7,9 @@ services:
       - /tmp
       - /run
     restart: always
-    image: docker.pkg.github.com/wectf/2020p/babyrev:latest
+    build:
+      context: "./babyrev"
+      dockerfile: ./Dockerfile
     deploy:
       replicas: 3
     environment:
@@ -16,24 +18,28 @@ services:
       - "8000:80"
   kvcloud:
     restart: always
-    image: docker.pkg.github.com/wectf/2020p/kvcloud:latest
+    build:
+      context: "./kvcloud"
+      dockerfile: ./Dockerfile
     ports:
       - "8001:80"
     networks:
-      chall:
-        ipv4_address: 172.128.1.100
+      challs:
+        ipv4_address: 172.129.1.100
   dont-bf-me:
     read_only: true
     tmpfs:
       - /tmp
       - /run
     restart: always
-    image: docker.pkg.github.com/wectf/2020p/dont-bf-me:latest
+    build:
+      context: "./dont-bf-me"
+      dockerfile: ./Dockerfile
     environment:
       PUB_KEY: "6LcS5woaAAAAAHdytfCWrec4YWiuyjhcMnxoKFSN"
       PRIV_KEY: "6LcS5woaAAAAAJ2YV8Q5CjvXPvBTQvWvjWdrKY7i"
       PASSWORD: "YTYyYThkMGMtNDMwMi00ZDZlLTlkZTYtNWY5ZDE2ZWFiZWY3"
-      FLAG: "we{f3243131-45e1-4d82-9dfb-586760275ac6@0bvious1y_n0t_a_brutef0rc3_cha11}"
+      FLAG: "we{00000000-0000-0000-0000-000000000000@demo-flag}"
     deploy:
       replicas: 3
     ports:
@@ -44,7 +50,9 @@ services:
       - /tmp
       - /run
     restart: always
-    image: docker.pkg.github.com/wectf/2020p/hashtable:latest
+    build:
+      context: "./hashtable"
+      dockerfile: ./Dockerfile
     environment:
       FLAG: "we{00000000-0000-0000-0000-000000000000@demo-flag}"
       RECAPTCHA_SECRET: "6Leg5ugUAAAAAN2IPVsDWiqG_jR2OzwUH-tbmYwm"
@@ -52,9 +60,11 @@ services:
       - "8004:8080"
   notebin:
     restart: always
-    image: docker.pkg.github.com/wectf/2020p/notebin:latest
+    build:
+      context: "./notebin"
+      dockerfile: ./Dockerfile
     environment:
-      FLAG: "we{00000000-0000-0000-0000-000000000000@demo-flag}""
+      FLAG: "we{00000000-0000-0000-0000-000000000000@demo-flag}"
     ports:
       - "8005:8080"
   wallet:
@@ -63,13 +73,15 @@ services:
       - /tmp
       - /run
     restart: always
-    image: docker.pkg.github.com/wectf/2020p/wallet:latest
+    build:
+      context: "./wallet"
+      dockerfile: ./Dockerfile
     ports:
       - "8006:3000"      
 
 networks:
-  chall:
+  challs:
     ipam:
       driver: default
       config:
-        - subnet: 172.128.0.0/16
+        - subnet: 172.129.0.0/16
