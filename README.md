@@ -21,6 +21,8 @@ localhost:8006 -> Wallet
 ```
 
 ## babyrev
+38 solves
+
 **Description**
 
 Shou only allows his gay friends to view the flag here. We got intels that he used PHP extension for access control and we retrieved a weird binary.
@@ -39,6 +41,8 @@ curl -H "User-Agent: Flag Viewer 2.0" [HOST]
 ```
 
 ## Red Team
+61 solves
+
 **Description**
 
 We overheard that Shou's company hoarded a shiny flag at a super secret subdomain.
@@ -81,6 +85,8 @@ dig AXFR shoustinycompany.cf @ns1.shoustinycompany.cf
 
 
 ## KVCloud 
+13 solves
+
 **Description**
 
 Shou hates to use Redis by TCPing it. He instead built a HTTP wrapper for saving his key-value pairs.
@@ -116,6 +122,8 @@ print("http://[HOST]:%s/get?redis_port=%s&key=%s" % (port, port, payload))
 
 
 ## dont-bf-me 
+36 solves
+
 **Description**
 
 Shou uses Recaptcha for his site to make it "safer".
@@ -130,6 +138,8 @@ Handout: https://github.com/wectf/2020p/blob/master/dont-bf-me/handout.zip
 
 
 ## Hashtable
+15 solves
+
 **Description**
 
 Universal hashing could prevent hackers from DoSing the hash table by creating a lot of collisions. Shou doubt that. Prove him correct by DoSing this hash table implemented with universal hashing.
@@ -213,6 +223,8 @@ func main() {
 
 
 ## Hall of Fame
+22 solves
+
 **Description**
 
 We made a Slack bot (@hof) to remember our past winners. Hope no one hacks it cuz we are running it on a really important database.
@@ -229,6 +241,8 @@ rank x') UNION SELECT 1,1,(SELECT flag from flags LIMIT 1) ---
 ```
 
 ## Notebin 
+8 solves
+
 **Description**
 
 Here is where Shou keeps his pathetic diaries and a shinny flag.
@@ -243,6 +257,8 @@ Set title as following could make content bypass DOMPurify.
 ```
 
 ## Wallet
+4 solves
+
 **Description**
 
 Shou has a habit of saving secret (i.e. flag) in the blockchain. Here is where he stores his bitcoin addresses.
@@ -316,6 +332,8 @@ Save 0.html, 1.html, 2.html and send 2.html as payload.
 After getting the bitcoin address, you can find flag in OP_RETURN of one transaction. 
 
 ## Wordpress
+2 solves
+
 **Description**
 
 Shou made his first wordpress plugin! Check it out!
