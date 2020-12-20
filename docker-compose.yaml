@@ -1,0 +1,75 @@
+version: '3.7'
+
+services:
+  babyrev:
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    restart: always
+    image: docker.pkg.github.com/wectf/2020p/babyrev:latest
+    deploy:
+      replicas: 3
+    environment:
+      FLAG: "we{00000000-0000-0000-0000-000000000000@demo-flag}"
+    ports:
+      - "8000:80"
+  kvcloud:
+    restart: always
+    image: docker.pkg.github.com/wectf/2020p/kvcloud:latest
+    ports:
+      - "8001:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.100
+  dont-bf-me:
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    restart: always
+    image: docker.pkg.github.com/wectf/2020p/dont-bf-me:latest
+    environment:
+      PUB_KEY: "6LcS5woaAAAAAHdytfCWrec4YWiuyjhcMnxoKFSN"
+      PRIV_KEY: "6LcS5woaAAAAAJ2YV8Q5CjvXPvBTQvWvjWdrKY7i"
+      PASSWORD: "YTYyYThkMGMtNDMwMi00ZDZlLTlkZTYtNWY5ZDE2ZWFiZWY3"
+      FLAG: "we{f3243131-45e1-4d82-9dfb-586760275ac6@0bvious1y_n0t_a_brutef0rc3_cha11}"
+    deploy:
+      replicas: 3
+    ports:
+      - "8003:80"
+  hashtable:
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    restart: always
+    image: docker.pkg.github.com/wectf/2020p/hashtable:latest
+    environment:
+      FLAG: "we{00000000-0000-0000-0000-000000000000@demo-flag}"
+      RECAPTCHA_SECRET: "6Leg5ugUAAAAAN2IPVsDWiqG_jR2OzwUH-tbmYwm"
+    ports:
+      - "8004:8080"
+  notebin:
+    restart: always
+    image: docker.pkg.github.com/wectf/2020p/notebin:latest
+    environment:
+      FLAG: "we{00000000-0000-0000-0000-000000000000@demo-flag}""
+    ports:
+      - "8005:8080"
+  wallet:
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    restart: always
+    image: docker.pkg.github.com/wectf/2020p/wallet:latest
+    ports:
+      - "8006:3000"      
+
+networks:
+  chall:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.128.0.0/16

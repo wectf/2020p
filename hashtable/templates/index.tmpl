@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne+Tactile&display=swap" rel="stylesheet">
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<style>
+    body {
+        text-align: center;
+        background: #111;
+        color: white;
+    }
+    .title {
+        font-family: 'Syne Tactile', cursive;
+        font-weight: 700;
+        font-size: 80px;
+    }
+    .dont-display {
+        display: none;
+    }
+    .container {
+        justify-content: space-around;
+        display: flex;
+        height: 100%;
+    }
+    .line {
+        height: 100px;
+        width: 1px;
+        background: #cccccc;
+    }
+    .sub-container {
+        text-align: left;
+    }
+
+</style>
+
+
+<body>
+<h1 class="title">Hash Table</h1>
+<div class="container">
+    <form class="sub-container" action="/insert">
+        <label>
+            <input class="form-control" type="text" placeholder="Set Value" name="value"/>
+        </label>
+        <br>
+        <div class="g-recaptcha" data-sitekey="6Leg5ugUAAAAAFEIvKy1yHHv1OsvGQiaqoe03Mnx"></div>
+        <input type="submit" class="btn btn-primary">
+    </form>
+    <div class="line"></div>
+    <form class="sub-container" action="/find">
+        <label>
+            <input type="text"  class="form-control" placeholder="Find Value" name="value" />
+        </label>
+        <br>
+        <input type="submit" class="btn btn-secondary">
+    </form>
+
+</div>
+
+<p class="dont-display">System starts at: {{.sys_time}}</p>
+<p class="dont-display">Table recreated at: {{.table_time}}</p>
+<p class="dont-display">Table has {{.total_elem}} element</p>
+</body>

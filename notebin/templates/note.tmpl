@@ -1,0 +1,31 @@
+<h1 id="title"></h1>
+<div id="note"></div>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@2.2.2/dist/purify.min.js"></script>
+<script>
+    // Debugging by uncommenting following line
+    // let _debug = {key: "sha1:f03e8a370aa8dc80f63a6d67401a692ae72fa530"}
+    fetch("/note/" + window.location.hash.substr(1)).
+        then(response => {
+            return response.json()
+        }).
+        then(data => {
+            // no xss in production env
+            if (window._debug && window._debug.key == "sha1:f03e8a370aa8dc80f63a6d67401a692ae72fa530"){
+                title = data.title
+                console.log(title)
+            }
+            else
+                title = DOMPurify.sanitize(data.title);
+            document.getElementById("title").innerHTML = title;
+
+
+        if (window._debug && window._debug.key == "sha1:f03e8a370aa8dc80f63a6d67401a692ae72fa530"){
+                content = data.content
+                console.log(content)
+            }
+            else
+                content = DOMPurify.sanitize(data.content);
+            document.getElementById("note").innerHTML = content;
+        })
+</script>
+

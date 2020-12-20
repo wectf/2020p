@@ -1,0 +1,47 @@
+<html style="background-color: #fff;">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/design-system/2.13.7/styles/salesforce-lightning-design-system.min.css" integrity="sha512-UV/bdfkf/vUvwZ6/aVq8zas293BNyu43i68QdurkfUmSjGRiCxKISDe29R6VPB3YKfeA/lCjGyfXLBIzlpTg5A==" crossorigin="anonymous" />
+<body style="padding: 10%;  max-width: 1200px; margin: 0 auto">
+<h1 style="font-size: 4em; font-weight: 700">Bitcoin Addresses Wallet</h1>
+<h1 style="font-size: 2em; font-weight: 300">Save Your Bitcoin Addresses at Our Vault</h1>
+<form action="/address" method="post" style="margin-top: 2em">
+    <input name="address" class="slds-input"/>
+    <button class="slds-button slds-button_brand" style="margin-top: 10px">Add Address</button>
+</form>
+
+<% for(let i = 0; i < addresses.length; i++){ let address = addresses[i]  %>
+<article class="slds-card" style="margin-top: 2em;">
+    <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="account">
+                          <svg class="slds-icon slds-icon_small" aria-hidden="true"></svg>
+                          <span class="slds-assistive-text">account</span>
+                        </span>
+            </div>
+            <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                        <span>Address <%=i+1%></span>
+                    </a>
+                </h2>
+            </div>
+        </header>
+    </div>
+    <div class="slds-card__body slds-card__body_inner"><%=address%></div>
+    <footer class="slds-card__footer">
+        <a class="slds-card__footer-action"
+           href="https://www.blockchain.com/btc/address/<%=address%>">Explore on Blockchain</a>
+    </footer>
+</article>
+<%} %>
+</body>
+<div style="position:absolute; right: 10px; top: 10px">
+    <form method="post" action="/style" id="style_form">
+        <select class="slds-select" name="style" onchange="style_form.submit()">
+            <option value="">Color Theme</option>
+            <option>Dark Theme</option>
+            <option>Raw</option>
+        </select>
+    </form>
+</div>
+</html>
