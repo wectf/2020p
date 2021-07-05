@@ -1,4 +1,4 @@
-FROM golang:1.14.2
+FROM golang:latest
 
 WORKDIR /usr/local/go/src/notebin
 COPY main.go ./main.go
